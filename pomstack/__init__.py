@@ -8,14 +8,14 @@ def main(global_config, **settings):
     """
     engine = engine_from_config(settings, 'sqlalchemy.')
     get_root = appmaker(engine)
+
+    settings['mako.directories'] = 'pomstack:templates'
+
     config = Configurator(settings=settings, root_factory=get_root)
+
     config.add_static_view('static', 'pomstack:static')
-    config.add_view('pomstack.views.view_root', 
-                    context='pomstack.models.MyApp', 
-                    renderer="templates/root.pt")
-    config.add_view('pomstack.views.view_model',
-                    context='pomstack.models.MyModel',
-                    renderer="templates/model.pt")
+    config.add_view('pomstack.views.view_dashboard', renderer="dashboard.mako")
+
     return config.make_wsgi_app()
 
 
