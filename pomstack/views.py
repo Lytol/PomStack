@@ -1,4 +1,5 @@
+from pyramid.view import view_config
 
-def view_dashboard(request):
+def dashboard(request):
     return {'project':'PomStack'}
 
