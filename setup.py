@@ -12,6 +12,7 @@ requires = [
     'repoze.tm2>=1.0b1', # default_commit_veto
     'sqlalchemy',
     'zope.sqlalchemy',
+    'psycopg2',
     'WebError',
     ]
 

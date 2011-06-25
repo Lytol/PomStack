@@ -15,7 +15,15 @@ def main(global_config, **settings):
     config = Configurator(settings=settings)
     config.add_static_view('static', 'pomstack:static')
 
-    config.add_route('dashboard', '/', view='pomstack.views.dashboard', renderer='dashboard.mako')
+    config.add_route('dashboard', '/')
+    config.add_view('pomstack.views.dashboard',
+                    route_name='dashboard',
+                    renderer='dashboard.mako')
+    
+    config.add_route('add_pomodoro', '/pomodoros/add')
+    config.add_view('pomstack.views.add_pomodoro',
+                    route_name='add_pomodoro',
+                    renderer='add_pomodoro.mako')
 
     return config.make_wsgi_app()
 

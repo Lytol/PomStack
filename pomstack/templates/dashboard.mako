@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <title>Dashboard &mdash; PomStack</title>
-  </head>
-  <body>
-  
-  </body>
-</html>
+<%inherit file="layout.mako"/>
+
+<ul class="actions">
+  <li><a href="${request.route_url('add_pomodoro')}">Add a Pomodoro</a></li>
+</ul>

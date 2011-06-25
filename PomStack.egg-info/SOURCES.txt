@@ -15,14 +15,4 @@ PomStack.egg-info/top_level.txt
 pomstack/__init__.py
 pomstack/models.py
 pomstack/views.py
-pomstack/static/favicon.ico
-pomstack/static/footerbg.png
-pomstack/static/headerbg.png
-pomstack/static/ie6.css
-pomstack/static/middlebg.png
-pomstack/static/pylons.css
-pomstack/static/pyramid-small.png
-pomstack/static/pyramid.png
-pomstack/static/transparent.gif
-pomstack/templates/model.pt
-pomstack/templates/root.pt
+pomstack/templates/dashboard.mako

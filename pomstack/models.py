@@ -18,15 +18,13 @@ from zope.sqlalchemy import ZopeTransactionExtension
 DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 Base = declarative_base()
 
-class MyModel(Base):
-    __tablename__ = 'models'
+class Pomodoro(Base):
+    __tablename__ = 'pomodoros'
     id = Column(Integer, primary_key=True)
-    name = Column(Unicode(255), unique=True)
-    value = Column(Integer)
+    title = Column(Unicode(255), unique=True)
 
-    def __init__(self, name, value):
-        self.name = name
-        self.value = value
+    def __init__(self, title):
+        self.title = title
 
 
 def initialize_sql(engine):
