@@ -7,7 +7,9 @@ from pomstack.models import Pomodoro
 
 
 def dashboard(request):
-    return {'project':'PomStack'}
+    session = DBSession()
+    pomodoros = session.query(Pomodoro)
+    return dict(pomodoros=pomodoros)
 
 def add_pomodoro(request):
     if request.method == "POST":
