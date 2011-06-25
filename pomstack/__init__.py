@@ -1,5 +1,6 @@
-from pyramid.config import Configurator
+import os
 
+from pyramid.config import Configurator
 from pomstack.models import initialize_sql
 from sqlalchemy import engine_from_config
 
@@ -7,6 +8,9 @@ from sqlalchemy import engine_from_config
 def main(global_config, **settings):
     """ This function returns a WSGI application.
     """
+    if 'sqlalchemy.url' not in settings:
+        settings['sqlalchemy.url'] = os.environ.get('DATABASE_URL')
+
     engine = engine_from_config(settings, 'sqlalchemy.')
     initialize_sql(engine)
 

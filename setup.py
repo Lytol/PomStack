@@ -14,6 +14,7 @@ requires = [
     'zope.sqlalchemy',
     'psycopg2',
     'WebError',
+    'cherrypy',
     ]
 
 if sys.version_info[:3] < (2,5,0):
