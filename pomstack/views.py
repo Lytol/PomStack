@@ -15,9 +15,17 @@ from pomstack.models import User, Pomodoro
 def home(request):
     return dict()
 
+class UniqueEmail(formencode.FancyValidator):
+    def _to_python(self, value, state):
+        session = DBSession()
+        if session.query(User).filter(User.email==value).first():
+            raise formencode.Invalid('That email already exists', value, state)
+        return value
+
 class SignupSchema(formencode.Schema):
-    allow_extra_fields = False
-    email = formencode.validators.Email(resolve_domain=False)
+    allow_extra_fields = True
+    filter_extra_fields = True
+    email = formencode.All(formencode.validators.Email(resolve_domain=False), UniqueEmail())
     password = formencode.validators.String(not_empty=True)
     password_confirmation = formencode.validators.String(not_empty=True)
     chained_validators = [
@@ -39,10 +47,18 @@ def signup(request):
         redirect_url = route_url('dashboard', request)
         return HTTPFound(location=redirect_url, headers=headers)
 
-    return dict()
+    return { 'form': FormRenderer(form) }
+
+class LoginSchema(formencode.Schema):
+    allow_extra_fields = True
+    filter_extra_fields = True
+    email = formencode.validators.String(not_empty=True)
+    password = formencode.validators.String(not_empty=True)
 
 @view_config(permission='public', route_name='login', renderer='login.mako')
 def login(request):
+    form = Form(request, schema=LoginSchema)
+
     if request.method == "POST":
         email = request.params['email']
         password = request.params['password']
@@ -50,8 +66,11 @@ def login(request):
             headers = remember(request, email)
             return HTTPFound(location=route_url('dashboard', request),
                             headers=headers)
+        else:
+            request.session.flash(u'Failed to login.')
+            return HTTPFound(location=route_url('login', request))
       
-    return dict()
+    return { 'form': FormRenderer(form) }
 
 @view_config(permission='auth', route_name='logout', renderer='logout.mako')
 def logout(request):

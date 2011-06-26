@@ -14,6 +14,12 @@
           <li class="signup"><a href="${request.route_url('signup')}">signup</a></li>
         % endif
       </ul>
+
+      % if request.session.peek_flash():
+        % for message in request.session.pop_flash():
+          <p id="flash-message">${message}</p>
+        % endfor
+      % endif
       
     </div>
 

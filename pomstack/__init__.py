@@ -35,6 +35,10 @@ def main(global_config, **settings):
     )
 
     config.set_request_factory(RequestWithUserAttribute)
+
+    config.add_subscriber('pomstack.subscribers.csrf_validation',
+                          'pyramid.events.NewRequest')
+    
     
     config.add_static_view('static', 'pomstack:static')
 

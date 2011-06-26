@@ -1,21 +1,26 @@
 <%inherit file="layout.mako"/>
 
-<form action="${request.route_url('signup')}" method="POST">
+${form.begin(request.route_url('signup'))}
+  ${form.csrf_token()}
   <ul>
     <li>
-      <label for="user_email">Email</label>
-      <input type="text" name="email" id="user_email" />
+      ${form.errorlist('email')}
+      ${form.label('email', 'Email:')}
+      ${form.text('email')}
     </li>
     <li>
-      <label for="user_password">Password</label>
-      <input type="password" name="password" id="user_password" />
+      ${form.errorlist('password')}
+      ${form.label('password', 'Password:')}
+      ${form.password('password')}
     </li>
     <li>
-      <label for="user_password_confirmation">Password (again)</label>
-      <input type="password" name="password_confirmation" id="user_password_confirmation" />
+      ${form.errorlist('password_confirmation')}
+      ${form.label('password_confirmation', 'Confirm password:')}
+      ${form.password('password_confirmation')}
     </li>
     <li>
-      <input type="submit" value="Signup" />
+      ${form.submit('submit', 'Signup')}
     </li>
   </ul>
-</form>
+${form.end()}
+
