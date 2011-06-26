@@ -1,6 +1,12 @@
 import os
 
 from pyramid.config import Configurator
+from pyramid.authentication import AuthTktAuthenticationPolicy
+from pyramid.authorization import ACLAuthorizationPolicy
+from pyramid.session import UnencryptedCookieSessionFactoryConfig
+
+from pomstack.helpers import RequestWithUserAttribute
+
 from pomstack.models import initialize_sql
 from sqlalchemy import engine_from_config
 
@@ -14,20 +20,34 @@ def main(global_config, **settings):
     engine = engine_from_config(settings, 'sqlalchemy.')
     initialize_sql(engine)
 
+    session_factory = UnencryptedCookieSessionFactoryConfig('dubb5oxalic')
+    authn_policy = AuthTktAuthenticationPolicy('dubb5oxalic')
+    authz_policy = ACLAuthorizationPolicy()
+
     settings['mako.directories'] = 'pomstack:templates'
 
-    config = Configurator(settings=settings)
+    config = Configurator(
+        settings=settings,
+        root_factory='pomstack.models.RootFactory',
+        authentication_policy=authn_policy,
+        authorization_policy=authz_policy,
+        session_factory=session_factory
+    )
+
+    config.set_request_factory(RequestWithUserAttribute)
+    
     config.add_static_view('static', 'pomstack:static')
 
-    config.add_route('dashboard', '/')
-    config.add_view('pomstack.views.dashboard',
-                    route_name='dashboard',
-                    renderer='dashboard.mako')
-    
+    """ Routes
+    """
+    config.add_route('home', '/')
+    config.add_route('signup', '/signup')
+    config.add_route('login', '/login')
+    config.add_route('logout', '/logout')
+    config.add_route('dashboard', '/dashboard')
     config.add_route('add_pomodoro', '/pomodoros/add')
-    config.add_view('pomstack.views.add_pomodoro',
-                    route_name='add_pomodoro',
-                    renderer='add_pomodoro.mako')
+
+    config.scan()
 
     return config.make_wsgi_app()
 

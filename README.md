@@ -3,9 +3,15 @@ PomStack
 
 Create a stack of Pomodoros to do at the beginning of each day, and pull them off the stack to complete them!
 
+### Helpful Links
+
+* <https://github.com/Pylons/shootout>
+
+
 TODO
 ----
 
+* Add user accounts
 * Add new pomodoros (inline)
 * Delete existing pomodoros (inline)
 * Edit existing pomodoros (inline)
