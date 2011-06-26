@@ -11,13 +11,13 @@ Create a stack of Pomodoros to do at the beginning of each day, and pull them of
 TODO
 ----
 
-* Add user accounts
 * Add new pomodoros (inline)
 * Delete existing pomodoros (inline)
 * Edit existing pomodoros (inline)
 * Copy pomodoros (inline)
 * Start a pomodoro
 * Set pomodoro as recurring
+* Design!
 
 Feature Ideas
 -------------
