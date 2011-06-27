@@ -1,13 +1,15 @@
-<%inherit file="layout.mako"/>
+<%inherit file="layouts/dashboard.mako"/>
 
-<form action="${request.route_url('add_pomodoro')}" method="POST">
+${form.begin(request.route_url('add_pomodoro'))}
+  ${form.csrf_token()}
   <ul>
     <li>
-      <label for="pomodoro_title">Title</label>
-      <input type="text" name="title" id="pomodoro_title" />
+      ${form.errorlist('title')}
+      ${form.label('title', 'Title')}
+      ${form.text('title')}
     </li>
     <li>
-      <input type="submit" value="Add" /> or <a href="${request.route_url('dashboard')}">cancel</a>
+      ${form.submit('submit', 'Add')}
     </li>
   </ul>
-</form>
+${form.end()}

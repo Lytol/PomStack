@@ -5,7 +5,8 @@ from pyramid.security import Everyone
 from pyramid.security import Authenticated
 from pyramid.security import Allow
 
-
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import relationship, backref
 from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import synonym
@@ -66,7 +67,10 @@ class User(Base):
 class Pomodoro(Base):
     __tablename__ = 'pomodoros'
     id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('users.id'))
     title = Column(Unicode(255), unique=True)
+
+    user = relationship(User, backref=backref('pomodoros', order_by=id))
 
     def __init__(self, title):
         self.title = title

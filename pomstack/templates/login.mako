@@ -1,4 +1,4 @@
-<%inherit file="layout.mako"/>
+<%inherit file="layouts/public.mako"/>
 
 ${form.begin(request.route_url('login'))}
   ${form.csrf_token()}

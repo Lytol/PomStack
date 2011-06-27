@@ -1,0 +1,123 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
+/* PomStack Styles
+ *
+ */
+
+body {
+  line-height: 20px;
+}
+
+#header {
+  position: relative;
+  width: 960px;
+  margin: 0 auto;
+  height: 80px;
+}
+
+  #header h1 {
+    font-size: 36px;
+    padding: 20px 0;
+  }
+
+  #header #header-menu {
+    position: absolute;
+    top: 20px;
+    right: 0;
+    border: 1px solid #777;
+    padding: 5px;
+  }
+
+  #header #header-menu ul {
+    display: none;
+    border-top: 1px dotted #CCC;
+    padding-top: 5px;
+    margin-top: 5px;
+  }
+
+  #header #header-menu ul li {
+    text-align: right;
+  }
+
+  #header #header-menu:hover ul {
+    display: block;
+  }
+
+#content {
+  width: 960px;
+  margin: 0 auto;
+}
+
+  #content ul#pomodoros {
+    width: 620px;
+    margin-right: 20px;
+  }
+  
+  #content ul#pomodoros li {
+    height: 80px;
+    border: 1px solid #CCC;
+    font-size: 15px;
+    line-height: 20px;
+    padding-left: 25px;
+    margin-bottom: 5px;
+  }
+
+  #content ul#pomodoros li.add {
+    height: 40px;
+    border: 1px solid #CCC;
+    font-size: 25px;
+    line-height: 38px;
+    padding-left: 25px;
+  }
+
+  #content ul#pomodoros li.add form {
+    display: none;
+  }

@@ -1,4 +1,4 @@
-<%inherit file="layout.mako"/>
+<%inherit file="layouts/public.mako"/>
 
 <h1>PomStack</h1>
 

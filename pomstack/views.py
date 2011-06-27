@@ -1,5 +1,5 @@
 from pyramid.view import view_config
-from pyramid.httpexceptions import HTTPFound
+from pyramid.httpexceptions import HTTPFound, HTTPForbidden
 from pyramid.url import route_url
 from pyramid.security import authenticated_userid, remember, forget
 
@@ -79,21 +79,33 @@ def logout(request):
     return HTTPFound(location=route_url('home', request),
                     headers=headers)
 
+@view_config(context=HTTPForbidden)
+def login_redirect(request):
+    return HTTPFound(location=route_url('login', request))
+
 @view_config(permission='auth', route_name='dashboard', renderer='dashboard.mako')
 def dashboard(request):
     session = DBSession()
-    pomodoros = session.query(Pomodoro)
-    return dict(pomodoros=pomodoros)
+    pomodoros = session.query(Pomodoro).filter_by(user_id=request.user.id).all()
+    return {
+        'pomodoros': pomodoros
+    }
+
+class PomodoroSchema(formencode.Schema):
+    allow_extra_fields = True
+    filter_extra_fields = True
+    title = formencode.validators.String(not_empty=True)
 
 @view_config(permission='auth', route_name='add_pomodoro', renderer='add_pomodoro.mako')
 def add_pomodoro(request):
-    if request.method == "POST":
+    form = Form(request, schema=PomodoroSchema)
+
+    if request.method == "POST" and form.validate():
         session = DBSession()
-        title = request.params['title']
-        pomodoro = Pomodoro(title)
+        pomodoro = Pomodoro(title=form.data['title'])
+        pomodoro.user = request.user
         session.add(pomodoro)
         return HTTPFound(location = route_url('dashboard', request))
 
-    pomodoro = Pomodoro('')
-    return dict(pomodoro=pomodoro)
+    return { 'form': FormRenderer(form) }
 
